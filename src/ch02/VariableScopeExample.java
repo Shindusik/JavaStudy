@@ -8,7 +8,7 @@ public class VariableScopeExample {
 		if (v1 > 10) {
 			v2 = v1 - 10;
 		}
-		// v2 º¯¼ö¸¦ »ç¿ëÇÒ ¼ö ¾ø±â ¶§¹®¿¡ ÄÄÆÄÀÏ ¿¡·¯°¡ »ý±è
+		// v2 ë³€ìˆ˜ë¥¼ ì‚¬ìš©í•  ìˆ˜ ì—†ê¸° ë•Œë¬¸ì— ì»´íŒŒì¼ ì—ëŸ¬ê°€ ìƒê¹€
 		int v3 = v1 + v2 + 5;
 		
 		System.out.print("v3: " + v3);
