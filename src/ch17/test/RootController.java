@@ -56,37 +56,37 @@ public class RootController implements Initializable {
 		tc.setStyle("-fx-alignment: CENTER");
 
 		tableView.setItems(list);
+		tableView.setOnMouseClicked(event -> handleTableViewMouseClicked(event));
 
 		btnAdd.setOnAction(event -> handleBtnAddAction(event));
 		barGraph.setOnAction(event -> handleBtnBarGraphAction(event));
-
-		tableView.setOnMouseClicked(event -> handleTableViewAction(event));
 	}
 
-	private void handleTableViewAction(MouseEvent event) {
+	private void handleTableViewMouseClicked(MouseEvent event) {
+		if (event.getClickCount() != 2) {
+			return;
+		}
 		try {
-			if (event.getClickCount() > 1) {
-				Parent root = FXMLLoader.load(getClass().getResource("Piechart.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("Piechart.fxml"));
 
-				Stage dialog = new Stage(StageStyle.UTILITY);
-				dialog.initModality(Modality.WINDOW_MODAL);
-				dialog.initOwner(tableView.getScene().getWindow());
-				dialog.setTitle("파이 그래프");
+			Stage dialog = new Stage(StageStyle.UTILITY);
+			dialog.initModality(Modality.WINDOW_MODAL);
+			dialog.initOwner(tableView.getScene().getWindow());
+			dialog.setTitle("파이 그래프");
 
-				PieChart piechart = (PieChart) root.lookup("#piechart");
+			PieChart piechart = (PieChart) root.lookup("#piechart");
 
-				Student student = (Student) tableView.getSelectionModel().getSelectedItem();
-				piechart.setData(FXCollections.observableArrayList(new PieChart.Data("국어", student.getKorean()),
-						new PieChart.Data("수학", student.getMath()), new PieChart.Data("영어", student.getEnglish())));
-				
-				Button btnClose = (Button) root.lookup("#btnClose");
-				btnClose.setOnAction(e -> dialog.close());
-				
-				Scene secne = new Scene(root);
-				dialog.setScene(secne);
-				dialog.setResizable(false);
-				dialog.show();
-			}
+			Student student = (Student) tableView.getSelectionModel().getSelectedItem();
+			piechart.setData(FXCollections.observableArrayList(new PieChart.Data("국어", student.getKorean()),
+					new PieChart.Data("수학", student.getMath()), new PieChart.Data("영어", student.getEnglish())));
+
+			Button btnClose = (Button) root.lookup("#btnClose");
+			btnClose.setOnAction(e -> dialog.close());
+
+			Scene secne = new Scene(root);
+			dialog.setScene(secne);
+			dialog.setResizable(false);
+			dialog.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
